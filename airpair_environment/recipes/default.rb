@@ -1,6 +1,6 @@
 node[:deploy].each do |application, deploy|
   pathname = File.join(deploy[:deploy_to], "shared","app.env")
-  File.open(pathname, 'w+') do |f|
-    f.puts 'export CLI_ROCKS=true'
+  File.open(pathname, 'a') do |f|
+    f.puts 'export AIRPAIR_CLI=ROCKS'
   end
 end
