@@ -23,7 +23,7 @@ Chef::Log.fatal("\n\n\n(CHEF)NODE DEPLOY: #{deploy.inspect}")
     user deploy[:user]
     group deploy[:group]
     path ::File.join(deploy[:deploy_to], "shared")
-    Chef::Log "\n\n\nAPPLICATION Environment FILE: #{deploy[:environment_variables].merge({FOO: 'BAR'})}"
+    Chef::Log.fatal "\n\n\nAPPLICATION Environment FILE: #{deploy[:environment_variables].merge({FOO: 'BAR'})}"
     environment_variables deploy[:environment_variables].merge({FOO: 'BAR'})
   end
 
