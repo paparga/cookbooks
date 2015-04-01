@@ -7,6 +7,3 @@ version     "1.0.0"
 # depends 'deploy'
 # depends 'opsworks_commons'
 
-message "\n\n\nGETHUMAN METADATA:"
-Chef::Log.debug("\n\n\n(Chef) GETHUMAN METADATA:")
-
