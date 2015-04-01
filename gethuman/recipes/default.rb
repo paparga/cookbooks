@@ -1,6 +1,8 @@
+Chef::Log.warn "\n\n\n NODE ENV VARIAbLES: #{node[:environment_variables]}"
+
 node[:deploy].each do |application, deploy|
 
-  Chef::Log.fatal "\n\n\nNormal: #{deploy[:environment_variables]}"
+  Chef::Log.warn "\n\n\nNormal: #{deploy[:environment_variables]}"
 
   application_environment_file do
     user deploy[:user]
@@ -12,10 +14,7 @@ node[:deploy].each do |application, deploy|
 end
 
 def merged_environment(variables)
-  custom = { :FOO => 'BAR', 'SNUGGS' => 'WINNING!' }
-  custom.merge!(:WEB => 'LIFE')
+  Chef::Log.warn "\n\n\nAPPLICATION Environment FILE: #{variables.merge(node[:environment_variables])}"
 
-  Chef::Log.fatal "\n\n\nAPPLICATION Environment FILE: #{custom.merge(variables)}"
-
-  custom.merge variables
+  variables.merge node[:environment_variables]
 end
