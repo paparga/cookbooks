@@ -1,9 +1,4 @@
 node[:deploy].each do |application, deploy|
-
-  custom = { :FOO => 'BAR', 'SNUGGS' => 'WINNING!' }
-  custom.merge!(:WEB => 'LIFE')
-
-# Chef::Log.fatal("\n\n\n(CHEF)NODE DEPLOY: #{deploy.inspect}")
   Chef::Log.fatal "\n\n\nAPPLICATION Environment FILE: #{deploy[:environment_variables].merge(custom)}"
 
   application_environment_file do
@@ -11,7 +6,13 @@ node[:deploy].each do |application, deploy|
     group deploy[:group]
 
     path ::File.join(deploy[:deploy_to], 'shared')
-
-    environment_variables deploy[:environment_variables].merge(custom)
+    environment_variables merged_environment(deploy[:environment_variables])
   end
+end
+
+def merged_environment(variables)
+  custom = { :FOO => 'BAR', 'SNUGGS' => 'WINNING!' }
+  custom.merge!(:WEB => 'LIFE')
+
+  custom.merge variables
 end
