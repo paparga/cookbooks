@@ -1,5 +1,5 @@
-message "\n\n\nGETHUMAN RECIPE DEFAULT:"
-Chef::Log.debug("\n\n\n(Chef) GETHUMAN RECIPE DEFAULT:")
+message "\n\n\nGETHUMAN RECIPE DEFAULT:#{node.inspect}"
+Chef::Log.debug("\n\n\n(Chef) GETHUMAN RECIPE DEFAULT:#{node.inspect}")
 
 node[:deploy].each do |application, deploy|
 message "\n\n\nNODE DEPLOY: #{deploy.inspect}"
