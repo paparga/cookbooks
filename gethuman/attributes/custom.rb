@@ -10,4 +10,4 @@
 
 # The following shows how to override the gem binary:
 #
-#normal[:dependencies][:gem_binary] = '/my/gem/binary'
+normal[:environment_variables][:Thanks] = 'God'

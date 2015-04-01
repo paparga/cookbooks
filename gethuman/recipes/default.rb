@@ -13,7 +13,8 @@ def merged_environment(variables)
   custom = { :FOO => 'BAR', 'SNUGGS' => 'WINNING!' }
   custom.merge!(:WEB => 'LIFE')
 
-  Chef::Log.fatal "\n\n\nAPPLICATION Environment FILE: #{custom.merge(variables)}"
+  Chef::Log.fatal "\n\n\nNormal: #{normal.inspect}"
+  Chef::Log.fatal "APPLICATION Environment FILE: #{custom.merge(variables)}"
 
   custom.merge variables
 end
