@@ -8,6 +8,4 @@
 # put the overrides in YOUR customize.rb file.
 ###
 
-# The following shows how to override the gem binary:
-#
-normal[:environment_variables][:Thanks] = 'God'
+#normal[:environment_variables][:Thanks] = 'God'
