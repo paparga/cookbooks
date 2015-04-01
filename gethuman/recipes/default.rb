@@ -1,7 +1,7 @@
-Chef::Log.debug("\n\n\n(Chef) GETHUMAN RECIPE DEFAULT:#{node.inspect}")
+Chef::Log.fatal("\n\n\n(Chef) GETHUMAN RECIPE DEFAULT:#{node.inspect}")
 
 node[:deploy].each do |application, deploy|
-Chef::Log.debug("\n\n\n(CHEF)NODE DEPLOY: #{deploy.inspect}")
+Chef::Log.fatal("\n\n\n(CHEF)NODE DEPLOY: #{deploy.inspect}")
 
 # opsworks_deploy_dir do
 #   user deploy[:user]
