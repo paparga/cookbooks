@@ -1,7 +1,6 @@
-Chef::Log.fatal("\n\n\n(Chef) GETHUMAN RECIPE DEFAULT:#{node.inspect}")
+# Chef::Log.fatal("\n\n\n(Chef) GETHUMAN RECIPE DEFAULT:#{node.inspect}")
 
 node[:deploy].each do |application, deploy|
-Chef::Log.fatal("\n\n\n(CHEF)NODE DEPLOY: #{deploy.inspect}")
 
 # opsworks_deploy_dir do
 #   user deploy[:user]
@@ -19,13 +18,14 @@ Chef::Log.fatal("\n\n\n(CHEF)NODE DEPLOY: #{deploy.inspect}")
 #   app application
 # end
 
-# application_environment_file do
-#   user deploy[:user]
-#   group deploy[:group]
-#   path ::File.join(deploy[:deploy_to], "shared")
-#   message "\n\n\nAPPLICATION Environment FILE: #{deploy[:environment_variables].merge({FOO: 'BAR'})}"
-#   environment_variables deploy[:environment_variables]
-# end
+Chef::Log.fatal("\n\n\n(CHEF)NODE DEPLOY: #{deploy.inspect}")
+  application_environment_file do
+    user deploy[:user]
+    group deploy[:group]
+    path ::File.join(deploy[:deploy_to], "shared")
+    Chef::Log "\n\n\nAPPLICATION Environment FILE: #{deploy[:environment_variables].merge!({FOO: 'BAR'})}"
+    environment_variables deploy[:environment_variables]
+  end
 
 # ruby_block "restart node.js application #{application}" do
 #   block do
