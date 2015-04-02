@@ -1,8 +1,6 @@
-Chef::Log.warn "\n\n\n gethuman::environment\n NODE ENV VARIAbLES: #{node['environment_variables']}"
+Chef::Log.warn "gethuman::environment\n NODE ENV VARIAbLES: #{node['environment_variables']}"
 
 node['deploy'].each do |application, deploy|
-  Chef::Log.warn "\n\n\nNormal: #{deploy[:environment_variables]}"
-
   # TODO: should check if application environment file exists
   #       to not break the following spec
   #       https://github.com/aws/opsworks-cookbooks/blob/release-chef-11.10/opsworks_nodejs/specs/default_spec.rb#L27
@@ -12,6 +10,10 @@ node['deploy'].each do |application, deploy|
 
   application_environment_file do
     path deploy['deploy_to']
-    environment_variables Gethuman.merged_environment(deploy['environment_variables'])
+    environment_variables Gethuman.merged_environment(deploy['environment_variables'], node['environment_variables'])
+  end
+
+  restart_nodejs do
+    application application
   end
 end

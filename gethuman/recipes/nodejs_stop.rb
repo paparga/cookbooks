@@ -1,7 +1,7 @@
-Chef::Log.warn "gethuman::logger\n NODE ENV VARIAbLES: #{node['environment_variables']}"
+Chef::Log.warn "gethuman::nodejs_stop\n NODE ENV VARIAbLES: #{node['environment_variables']}"
 
 node['deploy'].each do |application, deploy|
-  execute "send #{application} logs to CloudWatch" do
+  execute "restart Node app #{application} for custom env" do
     action :nothing
 
     user deploy['user']

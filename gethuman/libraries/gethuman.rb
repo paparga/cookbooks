@@ -1,14 +1,11 @@
 module Gethuman
-  def self.merged_environment(variables)
-    Chef::Log.warn "Gethuman.merged_environment: #{variables.merge(node_environment_variables)}"
+  def self.merged_environment(deploy_variables, node_variables)
+    Chef::Log.warn "Gethuman.merged_environment: #{deploy_variables.merge(node_variables)}"
 
     OpsWorks::Escape.escape_double_quotes(
-      variables.merge node_envirionment_variables
+      deploy_variables
+        .merge(node_variables)
     )
-  end
-
-  def node_environment_variables
-    node['environment_variables']
   end
 
   def self.npm_install(app_name, app_config, app_root_path, npm_install_options)
