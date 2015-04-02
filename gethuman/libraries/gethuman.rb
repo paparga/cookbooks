@@ -8,7 +8,7 @@ module Gethuman
   end
 
   def node_environment_variables
-    node[:environment_variables]
+    node['environment_variables']
   end
 
   def self.npm_install(app_name, app_config, app_root_path, npm_install_options)

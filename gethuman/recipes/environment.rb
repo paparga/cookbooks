@@ -1,6 +1,6 @@
-Chef::Log.warn "\n\n\n gethuman::environment\n NODE ENV VARIAbLES: #{node[:environment_variables]}"
+Chef::Log.warn "\n\n\n gethuman::environment\n NODE ENV VARIAbLES: #{node['environment_variables']}"
 
-node[:deploy].each do |application, deploy|
+node['deploy'].each do |application, deploy|
   Chef::Log.warn "\n\n\nNormal: #{deploy[:environment_variables]}"
 
   # TODO: should check if application environment file exists
@@ -11,6 +11,7 @@ node[:deploy].each do |application, deploy|
 # end
 
   application_environment_file do
-    environment_variables Gethuman.merged_environment(deploy[:environment_variables])
+    path deploy['deploy_to']
+    environment_variables Gethuman.merged_environment(deploy['environment_variables'])
   end
 end
