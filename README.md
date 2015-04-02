@@ -60,37 +60,61 @@ https://forums.aws.amazon.com/message.jspa?messageID=569282
 ![](http://new.tinygrab.com/d53b50c206e6b3cf28669e18c4637365e4ed29de77.png)
 
 ### Custom JSON
+  Custom JSON can be provided within the Stack level settings.
+  However, the settings for the entire stack along with
+  JSON settings at the individual app level can be configured as well.
+  JSON configured at this level takes precedence over
+  AWS Cookbooks, and environment variables set at the
+  AWS Opsworks Console level _(see above)_.
+
+  ![](http://new.tinygrab.com/d53b50c2067fa4d939885163cf34d5402cc8575ed3.png)
+  
 __Stack Level__
-![](http://new.tinygrab.com/d53b50c206600c6a0e5a2b8bd7ff6dee256902757c.png)
 ```javascript
 {
   // All stack environment variables to be copied over to the instance:
   "environment_variables": {
-    "GETHUMAN_STACK": "SECRETZ"
+    "GETHUMAN_STACK": "SECRET"
   },
-}
-```
 
-__App Level__
-![](http://new.tinygrab.com/d53b50c206483eae951758549466e445d3f26e8558.png)
-```javascript
-{
-  // Specific instance environment variables:
+  // Specific Appl Level environment variables:
   "deploy": {
     "app_name": {
       "environment_variables": {
-        "GETHUMAN_APP": "SECRET"
+        "PRIVATE": "SECRETZ"
       }
     }
   }
 }
 ```
 
-__Deploy Level__
-![]()
+__App Level Opsworks Custom JSON
 ```javascript
+{
+  // Specific Appl Level environment variables:
+  "deploy": {
+    "app_name": {
+      "environment_variables": {
+        "GETHUMAN_APP": "SECRET",
+        "GETHUMAN_STACK": "OVERRIDE SECRET"
+      }
+    }
+  }
+}
+```
+
+__App Level Opsworks Console (with protected values)
+![](http://new.tinygrab.com/d53b50c20608657f4f3d67ffdd7f960f68ee2fe63d.png)
+
+__Deploy Level
+
+Environment variables can be set on a "per instance deploy".
+Click "Advanced" to show custom JSON settings.
+
   This setting is located within AWS OpsWorks console under Deploy App.
   The variables set here take the highest precedence of all settings.
+
+  ![](http://new.tinygrab.com/d53b50c2067987fbdceb6d30b93096ecee449c5d9c.png)
 
 ```javascript
 {
