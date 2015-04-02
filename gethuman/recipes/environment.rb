@@ -1,7 +1,6 @@
-Chef::Log.warn "\n\n\n CONFIGURE\n NODE ENV VARIAbLES: #{node[:environment_variables]}"
+Chef::Log.warn "\n\n\n gethuman::environment\n NODE ENV VARIAbLES: #{node[:environment_variables]}"
 
 node[:deploy].each do |application, deploy|
-
   Chef::Log.warn "\n\n\nNormal: #{deploy[:environment_variables]}"
 
   application_environment_file do
