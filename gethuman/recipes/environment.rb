@@ -3,22 +3,14 @@ Chef::Log.warn "\n\n\n gethuman::environment\n NODE ENV VARIAbLES: #{node[:envir
 node[:deploy].each do |application, deploy|
   Chef::Log.warn "\n\n\nNormal: #{deploy[:environment_variables]}"
 
-  application_environment_file do
-    user deploy[:user]
-    group deploy[:group]
+  # TODO: should check if application environment file exists
+  #       to not break the following spec
+  #       https://github.com/aws/opsworks-cookbooks/blob/release-chef-11.10/opsworks_nodejs/specs/default_spec.rb#L27
+# append_to_application_environment_file do
+#   environment_variables Gethuman.merged_environment(deploy[:environment_variables])
+# end
 
-    path ::File.join(deploy[:deploy_to], 'shared')
-    environment_variables merged_environment(deploy[:environment_variables])
+  application_environment_file do
+    environment_variables Gethuman.merged_environment(deploy[:environment_variables])
   end
 end
-
-def merged_environment(variables)
-  Chef::Log.warn "app.env: #{variables.merge(node_environment_variables)}"
-
-  variables.merge node_envirionment_variables
-end
-
-def node_environment_variables
-  node[:environment_variables]
-end
-
