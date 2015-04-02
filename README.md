@@ -1,10 +1,6 @@
 # GetHuman AWS OpsWorks Cookbook
 
 ## Recipes
-![](http://new.tinygrab.com/d53b50c2062ff8f3bb230fe32a72fdb7dc3bc81fb0.png)
-
-![](http://new.tinygrab.com/d53b50c20626a1a609fd55b5eaceab143307616cd6.png)
-
 ### gethuman
   The default Chef Recipe
   https://github.com/snuggs/airpair-cookbooks/blob/master/gethuman/recipes/default.rb
@@ -41,6 +37,7 @@ with 5 second pauses (i.e. cycle through all instances)
 
 https://github.com/Unitech/PM2/blob/master/ADVANCED_README.md
 
+http://stackoverflow.com/questions/22197655/customize-node-js-start-command-with-aws-opsworks
 http://stackoverflow.com/questions/11275870/how-can-i-automatically-start-a-node-js-application-in-amazon-linux-ami-on-aws
 https://forums.aws.amazon.com/message.jspa?messageID=569282
 
@@ -63,7 +60,37 @@ https://forums.aws.amazon.com/message.jspa?messageID=569282
 ![](http://new.tinygrab.com/d53b50c206e6b3cf28669e18c4637365e4ed29de77.png)
 
 ### Custom JSON
-  This setting is located within AWS OpsWorks console under Deploy App. The variables set here take the highest precedence of all settings.
+__Stack Level__
+![](http://new.tinygrab.com/d53b50c206600c6a0e5a2b8bd7ff6dee256902757c.png)
+```javascript
+{
+  // All stack environment variables to be copied over to the instance:
+  "environment_variables": {
+    "GETHUMAN_STACK": "SECRETZ"
+  },
+}
+```
+
+__App Level__
+![](http://new.tinygrab.com/d53b50c206483eae951758549466e445d3f26e8558.png)
+```javascript
+{
+  // Specific instance environment variables:
+  "deploy": {
+    "app_name": {
+      "environment_variables": {
+        "GETHUMAN_APP": "SECRET"
+      }
+    }
+  }
+}
+```
+
+__Deploy Level__
+![]()
+```javascript
+  This setting is located within AWS OpsWorks console under Deploy App.
+  The variables set here take the highest precedence of all settings.
 
 ```javascript
 {
@@ -82,14 +109,6 @@ https://forums.aws.amazon.com/message.jspa?messageID=569282
   }
 }
 ```
-
-** Notes
-![](http://new.tinygrab.com/d53b50c206be7ac1d60b4c7eff00ae7846d720afb1.png)
-* WE NEED To get the repository as a fork atop aws/opsworks-cookbooks/
-  in the following blog post discusses how include_attribute is deprecated. However aws/opsworks-cookbooks uses this.
-  Expect a major deprecation coming soon.
-
-  https://www.chef.io/blog/2013/02/05/chef-11-in-depth-attributes-changes/
 
 ## Rollback
   Use AWS Opsworks Console to rollback to previous versions.
@@ -113,4 +132,16 @@ You should not write this in JavaScript. Rather, if you can do something similar
   - Custom ALI http://github.com/zupper/nodejs-wrapper-psworks
   - Custom Ubuntu installation. (Sounds more difficult than it really is) http://serverfault.com/questions/674089/how-can-i-get-node-js-0-12-0-running-on-aws-opsworks
   - Custom AWS Opsworks layer
+  ![](http://new.tinygrab.com/d53b50c2064b2f43860d57aa55fa4090a507d4716f.png)
+
+## Notes
+  ![](http://new.tinygrab.com/d53b50c2062ff8f3bb230fe32a72fdb7dc3bc81fb0.png)
+
+  ![](http://new.tinygrab.com/d53b50c20626a1a609fd55b5eaceab143307616cd6.png)
+
+  ![](http://new.tinygrab.com/d53b50c206be7ac1d60b4c7eff00ae7846d720afb1.png)
+
+  * WE NEED To get the repository as a fork atop aws/opsworks-cookbooks/
+    in the following blog post discusses how include_attribute is deprecated. However aws/opsworks-cookbooks uses this.
+  Expect a major deprecation coming soon.
 
