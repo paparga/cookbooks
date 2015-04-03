@@ -15,7 +15,7 @@
 ### gethuman::ssl
   All requests MUST redirect to the SSL (https) version of the site.
   The following domains are the only exception:
-  - gethuman.com
+  - gethuman.com # this makes no sense. You mean root domain?
   - *.gethuman.com
   - gethuman.co
   - *.gethuman.co
