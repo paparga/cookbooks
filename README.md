@@ -20,6 +20,10 @@
   - gethuman.co
   - *.gethuman.co
 
+  supported in the following commit:
+  https://github.com/aws/opsworks-cookbooks/commit/10f53b86b4350453a993b84c67aa20470e811059
+  http://stackoverflow.com/questions/10294481/how-to-redirect-a-url-in-nginx
+
 ### gethuman::log
   logs to CloudWatch - Right now just logging locally (see opsworks_nodejs/templates/default/node_web_app.monitrc.erb). We want to send this production.log from every instance as well as any other relevant logs you think makes sense to CloudWatch.
 
