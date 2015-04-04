@@ -1,5 +1,7 @@
 Chef::Log.warn "\n\n\n Running gethuman::default"
 
+package 'nginx'
+
 if node['opsworks']['instance']['layers']
   .include?("#{deploy['application_type']}-app")
 
