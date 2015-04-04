@@ -7,6 +7,7 @@
 
 ### gethuman::caching
   nginx page caching - Modify chef cookbook to enable page caching. Document how we can easily modify the routes to be cached and length of time for caching.
+  May need to use nginx plus
 
 #### Route Caching
 
