@@ -29,6 +29,12 @@
   logs to CloudWatch - Right now just logging locally (see opsworks_nodejs/templates/default/node_web_app.monitrc.erb). We want to send this production.log from every instance as well as any other relevant logs you think makes sense to CloudWatch.
 
 ### gethuman::nodejs
+
+Configure Berkshelf (Stack -> Stack Settings -> Edit)
+  ![](http://new.tinygrab.com/d53b50c206791e4398c0c36039473a1538865d5b20.png)
+
+Run Command: Install Stack Level Dependencies
+
 Restart node.js process
 Note: _This script does not run config/setup steps that are in opsworks_
 
