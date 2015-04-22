@@ -1,5 +1,16 @@
 # GetHuman AWS OpsWorks Cookbook
 
+This is the cookbook used by GetHuman for some deployments. We tried to set this up in a generic
+way so it actually could be used by anyone. At a high level, these cookbooks work on top of the
+default AWS OpsWorks cookbooks. Anything GetHuman-specific has been abstracted out into environment
+variables that can be set at the App level in an OpsWorks stack. The information in this README
+includes:
+
+* Recipes - The unique recipes for this repo
+* Environment Variables - An explanation of variables used
+* Ops - How to manage an app that uses this cookbook 
+
+
 ## Recipes
 ### gethuman
   The default Chef Recipe
