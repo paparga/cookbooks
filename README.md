@@ -1,20 +1,37 @@
-# GetHuman AWS OpsWorks Cookbook
+# GetHuman AWS OpsWorks Cookbooks
 
-This is the cookbook used by GetHuman for some deployments. We tried to set this up in a generic
-way so it actually could be used by anyone. At a high level, these cookbooks work on top of the
-default AWS OpsWorks cookbooks. Anything GetHuman-specific has been abstracted out into environment
-variables that can be set at the App level in an OpsWorks stack. The information in this README
-includes:
-
-* Recipes - The unique recipes for this repo
-* Environment Variables - An explanation of variables used
-* Ops - How to manage an app that uses this cookbook 
-
+  A collection of cookbooks used by GetHuman for some deployments. We tried to set this up in a generic
+  way so it actually could be used by anyone. At a high level, these cookbooks work on top of the
+  default AWS OpsWorks cookbooks. Anything GetHuman-specific has been abstracted out into environment
+  variables that can be set at the App level in an OpsWorks stack. The information in this README
+  includes:
+  
+  * Recipes - The unique recipes for this repo
+  * Environment Variables - An explanation of variables used
+  * Ops - How to manage an app that uses these cookbooks 
+  * Future ToDos
 
 ## Recipes
-### gethuman
-  The default Chef Recipe
-  https://github.com/snuggs/airpair-cookbooks/blob/master/gethuman/recipes/default.rb
+
+  When this repo is added to an OpsWorks stack, the following 
+  [default recipes](https://github.com/gethuman/cookbooks/blob/master/gethuman/recipes/default.rb) 
+  are automatically added:
+
+  * log
+  * ssl
+  * nginx
+  * caching
+  * nodejs_start
+  * nodejs_stop
+  * environment
+  
+  Each of these recipes are described below.
+
+#### log
+  We are using a [shared logging cookbook](https://github.com/awslabs/opsworks-cloudwatch-logs-cookbooks) to
+  set up a CloudWatch agent on the servers in order to capture logs. 
+  [This article](http://blogs.aws.amazon.com/application-management/post/TxTX72HFKVS9W9/Using-Amazon-CloudWatch-Logs-with-AWS-OpsWorks)
+  explains what is going on. Basic gist, though, is to go to CloudWatch in the AWS console to view any logs.
 
 ### gethuman::caching
   nginx page caching - Modify chef cookbook to enable page caching. Document how we can easily modify the routes to be cached and length of time for caching.
@@ -36,8 +53,6 @@ includes:
   https://github.com/aws/opsworks-cookbooks/commit/10f53b86b4350453a993b84c67aa20470e811059
   http://stackoverflow.com/questions/10294481/how-to-redirect-a-url-in-nginx
 
-### gethuman::log
-  logs to CloudWatch - Right now just logging locally (see opsworks_nodejs/templates/default/node_web_app.monitrc.erb). We want to send this production.log from every instance as well as any other relevant logs you think makes sense to CloudWatch.
 
 ### gethuman::nodejs
 
