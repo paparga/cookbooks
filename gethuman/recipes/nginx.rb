@@ -10,11 +10,12 @@ end
 include_recipe 'nginx' # does this actuall
 
 # include_recipe 'nginx::service' # do we even need this? It's defined on line 67 of nginx/recipes/default.rb
-
 Chef::Log.warn "gethuman::nginx\n NODE ENV VARIAbLES: #{node['environment_variables']}"
 
 node['deploy'].each do |application, deploy|
-# http://wiki.nginx.org/CommandLine#Stopping_or_Restarting_Nginx
+  cached_routes = deploy['cached_routes'] || node['cached_routes']
+  force_default[:nginx][:cached_routes] = cached_routes
+
   Chef::Log.warn "nginx: #{node['nginx']}"
 
   # configure nginx
