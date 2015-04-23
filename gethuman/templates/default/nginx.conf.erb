@@ -1,5 +1,5 @@
-user <%= node[:nginx][:user] %>;
-worker_processes  <%= node[:nginx][:worker_processes] %>;
+#user <%= node[:nginx][:user] %>;
+#worker_processes  <%= node[:nginx][:worker_processes] %>;
 
 error_log  <%= node[:nginx][:log_dir] %>/error.log;
 pid        <%= node[:nginx][:pid_file] %>;
