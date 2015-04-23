@@ -6,9 +6,5 @@ node['deploy'].each do |application, deploy|
 
     user deploy['user']
     cwd deploy['current_path']
-
-    # Nodejs stop command
-#   command "#{deploy['deploy_to']}/path/to/node"
-    command "echo WAT!"
   end
 end
