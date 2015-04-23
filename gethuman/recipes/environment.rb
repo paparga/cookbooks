@@ -12,8 +12,4 @@ node['deploy'].each do |application, deploy|
     path deploy['deploy_to']
     environment_variables Gethuman.merged_environment(deploy['environment_variables'], node['environment_variables'])
   end
-
-  restart_nodejs do
-    application application
-  end
 end
