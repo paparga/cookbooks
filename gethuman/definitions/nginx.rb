@@ -8,7 +8,7 @@ define :configure_nginx, path: './', user: '', group: '', cached_routes: [] do
     user  params['user']
     owner params['user']
     group params['group']
-    variables({ cached_routes: params['cached_routes'] })
+    variables(:cached_routes => params['cached_routes'])
   end
 end
 
