@@ -7,106 +7,66 @@
   includes:
   
   * Recipes - The unique recipes for this repo
-  * Environment Variables - An explanation of variables used
-  * Ops - How to manage an app that uses these cookbooks 
-  * Future ToDos
+  * ToDos
 
 ## Recipes
 
-  When this repo is added to an OpsWorks stack, the following 
-  [default recipes](https://github.com/gethuman/cookbooks/blob/master/gethuman/recipes/default.rb) 
-  are automatically added:
+When this repo is added to an OpsWorks stack, the following 
+[default recipes](https://github.com/gethuman/cookbooks/blob/master/gethuman/recipes/default.rb) 
+are automatically added:
 
-  * log
-  * ssl
-  * nginx
-  * caching
-  * nodejs_start
-  * nodejs_stop
-  * environment
-  
-  Each of these recipes are described below.
+#### logs
 
-#### log
-  We are using a [shared logging cookbook](https://github.com/awslabs/opsworks-cloudwatch-logs-cookbooks) to
-  set up a CloudWatch agent on the servers in order to capture logs. 
-  [This article](http://blogs.aws.amazon.com/application-management/post/TxTX72HFKVS9W9/Using-Amazon-CloudWatch-Logs-with-AWS-OpsWorks)
-  explains what is going on. Basic gist, though, is to go to CloudWatch in the AWS console to view any logs.
+* lifecycle stage: setup
+* recipes: logs::config logs::install
+ 
+We are using a [shared logging cookbook](https://github.com/awslabs/opsworks-cloudwatch-logs-cookbooks) to
+set up a CloudWatch agent on the servers in order to capture logs. 
+[This article](http://blogs.aws.amazon.com/application-management/post/TxTX72HFKVS9W9/Using-Amazon-CloudWatch-Logs-with-AWS-OpsWorks)
+explains what is going on. Basic gist, though, is to go to CloudWatch in the AWS console to view any logs.
 
-### gethuman::caching
-  nginx page caching - Modify chef cookbook to enable page caching. Document how we can easily modify the routes to be cached and length of time for caching.
-  May need to use nginx plus
+#### ssl
 
-#### Route Caching
+* lifecycle stage: setup
+* recipes: gethuman::ssl
 
-#### Duration
+The chef recipe does (?), but most of the work is in the 
+[nginx conf](https://github.com/gethuman/cookbooks/blob/master/gethuman/templates/default/nginx.conf.erb)
+starting at line 89. This follows the 
+[guide on how to do nginx redirects](http://stackoverflow.com/questions/10294481/how-to-redirect-a-url-in-nginx).
 
-### gethuman::ssl
-  All requests MUST redirect to the SSL (https) version of the site.
-  The following domains are the only exception:
-  - gethuman.com # this makes no sense. You mean root domain?
-  - *.gethuman.com
-  - gethuman.co
-  - *.gethuman.co
+#### caching
 
-  supported in the following commit:
-  https://github.com/aws/opsworks-cookbooks/commit/10f53b86b4350453a993b84c67aa20470e811059
-  http://stackoverflow.com/questions/10294481/how-to-redirect-a-url-in-nginx
+* lifecycle stage: setup
+* recipes: gethuman::caching
 
+The chef recipe does (?), but most of the work is in the 
+[nginx conf](https://github.com/gethuman/cookbooks/blob/master/gethuman/templates/default/nginx.conf.erb)
+starting at line 113. The key here is to set the cached_routes environment variable with the
+routes that need to be cached.
 
-### gethuman::nodejs
+### nodejs
 
-Configure Berkshelf (Stack -> Stack Settings -> Edit)
-  ![](http://new.tinygrab.com/d53b50c206791e4398c0c36039473a1538865d5b20.png)
+* lifecycle stage: none (run ad hoc)
+* recipes: gethuman::nodejs_start gethuman::nodejs_stop
+* Note that this requires 'Manage Berkshelf' to be 'Yes' (Stack -> Stack Settings -> Edit).
+* Also note that this recipe will set [NODE_ENV=production](http://stackoverflow.com/questions/22197655/customize-node-js-start-command-with-aws-opsworks)
+* Read the [PM2 manual](https://github.com/Unitech/PM2/blob/master/ADVANCED_README.md) as a reference
 
-Run Command: Install Stack Level Dependencies
+The idea here is to run (?) when we want to restart node on an instance.
 
-Restart node.js process
-Note: _This script does not run config/setup steps that are in opsworks_
+#### environment
 
-Select specific instances to restart
+* lifecycle stage: setup
+* recipes: gethuman::environment
 
-A common use case for this would involve querying
-which instances are currently active through the CLI and
-then looping through that list and restarting node.js one at a time
-with 5 second pauses (i.e. cycle through all instances)
+The purpose of this recipe is to update the environment variables with a new set. This
+recipe leverages [AWS Attribute Precedence](http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-attributes-precedence.html)
+(listed from lowest precedence to highest):
 
+1. [Custom cookbook default attributes](https://github.com/gethuman/cookbooks/blob/master/gethuman/attributes/custom.rb)
+2. Stack level environment variables
 
-https://github.com/Unitech/PM2/blob/master/ADVANCED_README.md
-
-http://stackoverflow.com/questions/22197655/customize-node-js-start-command-with-aws-opsworks
-http://stackoverflow.com/questions/11275870/how-can-i-automatically-start-a-node-js-application-in-amazon-linux-ami-on-aws
-https://forums.aws.amazon.com/message.jspa?messageID=569282
-
-## Environment Variables
-  This cookbook provides the following updates to environment variables:
-  Please refer to the following for more attribute precedence details
-  http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-attributes-precedence.html
-
-### Chef Cookbook Attributes
-  Location: https://github.com/snuggs/airpair-cookbooks/blob/master/gethuman/attributes/custom.rb
-
-  Should have developers be able to put in environment variables.
-
-  Uses the override attribute strategy
-  ![](http://new.tinygrab.com/d53b50c206bb5105c4802506f20afcf050b50c0799.png)
-
-
-### AWS Opsworks Console
-   Should have administrators be able to put in custom jSON which overrides.
-![](http://new.tinygrab.com/d53b50c206e6b3cf28669e18c4637365e4ed29de77.png)
-
-### Custom JSON
-  Custom JSON can be provided within the Stack level settings.
-  However, the settings for the entire stack along with
-  JSON settings at the individual app level can be configured as well.
-  JSON configured at this level takes precedence over
-  AWS Cookbooks, and environment variables set at the
-  AWS Opsworks Console level _(see above)_.
-
-  ![](http://new.tinygrab.com/d53b50c2067fa4d939885163cf34d5402cc8575ed3.png)
-  
-__Stack Level__
 ```javascript
 {
   // All stack environment variables to be copied over to the instance:
@@ -125,7 +85,8 @@ __Stack Level__
 }
 ```
 
-__App Level Opsworks Custom JSON
+3. App Level Opsworks Custom JSON
+
 ```javascript
 {
   // Specific Appl Level environment variables:
@@ -140,18 +101,19 @@ __App Level Opsworks Custom JSON
 }
 ```
 
-__App Level Opsworks Console (with protected values)
+4. App Level Opsworks Console (with protected values)
+
 ![](http://new.tinygrab.com/d53b50c20608657f4f3d67ffdd7f960f68ee2fe63d.png)
 
-__Deploy Level
+5. Deploy Level
 
 Environment variables can be set on a "per instance deploy".
 Click "Advanced" to show custom JSON settings.
 
-  This setting is located within AWS OpsWorks console under Deploy App.
-  The variables set here take the highest precedence of all settings.
+This setting is located within AWS OpsWorks console under Deploy App.
+The variables set here take the highest precedence of all settings.
 
-  ![](http://new.tinygrab.com/d53b50c2067987fbdceb6d30b93096ecee449c5d9c.png)
+![](http://new.tinygrab.com/d53b50c2067987fbdceb6d30b93096ecee449c5d9c.png)
 
 ```javascript
 {
@@ -171,38 +133,8 @@ Click "Advanced" to show custom JSON settings.
 }
 ```
 
-## Rollback
-  Use AWS Opsworks Console to rollback to previous versions.
-  Deployments -> Deploy -> Rollback
-  ![](http://new.tinygrab.com/d53b50c206d3f780ea90b51f2723ff5a737c5ebe3d.png)
+## ToDos
 
-  When the app is updated, AWS OpsWorks stores the previous version, up to a maximum of five versions. You can use this command to roll an app back as many as four versions.
-
-## Zero Downtime
-  One nicety of AWS Opsworks is the apps do not fail over on redeploy. The current application will run all the way until the new instance is fully loaded.
-
-http://www.guywarner.com/2014/12/zero-downtime-rolling-deploy-with-aws.html
-
-You should not write this in JavaScript. Rather, if you can do something similar through the AWS CLI with a series of commands, I can take what you give me a stick it into a JavaScript script.
-
-## Node Version Management
-  Set things up so I can easily switch back and forth between io.js, node.js and different versions of each. I want to try testing out between node 0.10, node 0.12 and the latest io.js
-
-  As of 2015-04-01 only node v0.10 is supported on AWS Opsworks. However, there are a few alternatives to getting the latest version of node installed:
-
-  - Custom ALI http://github.com/zupper/nodejs-wrapper-psworks
-  - Custom Ubuntu installation. (Sounds more difficult than it really is) http://serverfault.com/questions/674089/how-can-i-get-node-js-0-12-0-running-on-aws-opsworks
-  - Custom AWS Opsworks layer
-  ![](http://new.tinygrab.com/d53b50c2064b2f43860d57aa55fa4090a507d4716f.png)
-
-## Notes
-  ![](http://new.tinygrab.com/d53b50c2062ff8f3bb230fe32a72fdb7dc3bc81fb0.png)
-
-  ![](http://new.tinygrab.com/d53b50c20626a1a609fd55b5eaceab143307616cd6.png)
-
-  ![](http://new.tinygrab.com/d53b50c206be7ac1d60b4c7eff00ae7846d720afb1.png)
-
-  * WE NEED To get the repository as a fork atop aws/opsworks-cookbooks/
-    in the following blog post discusses how include_attribute is deprecated. However aws/opsworks-cookbooks uses this.
-  Expect a major deprecation coming soon.
-
+* Rollback - Manually through (Deployments -> Deploy -> Rollback), but figure out command line for this.
+* NVM - Only options are [custom ALI](http://github.com/zupper/nodejs-wrapper-psworks), [custom ubuntu install](http://serverfault.com/questions/674089/how-can-i-get-node-js-0-12-0-running-on-aws-opsworks) or custom OpsWorks layer
+* Fork - We should fork atop opsworks-cookbooks so adding updates is easier. Note that include_attribute is deprectated and [we use it](https://github.com/gethuman/cookbooks/blob/master/gethuman/attributes/nginx.rb).

@@ -5,7 +5,6 @@ package 'nginx'
 if node['opsworks']['instance']['layers']
   .include?("#{deploy['application_type']}-app")
 
-  include_recipe 'gethuman::log'
   include_recipe 'gethuman::ssl'
   include_recipe 'gethuman::nginx'
   include_recipe 'gethuman::caching'
