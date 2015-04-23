@@ -4,6 +4,7 @@ maintainer  'Get Human'
 license     'Apache 2.0'
 version     '1.0.0'
 
+depends 'pm2'
 depends 'nginx'
 depends 'nodejs'
 depends 'gethuman'
