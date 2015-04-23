@@ -64,8 +64,14 @@ The purpose of this recipe is to update the environment variables with a new set
 recipe leverages [AWS Attribute Precedence](http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-attributes-precedence.html)
 (listed from lowest precedence to highest):
 
-1. [Custom cookbook default attributes](https://github.com/gethuman/cookbooks/blob/master/gethuman/attributes/custom.rb)
-2. Stack level environment variables
+__[Custom cookbook default attributes](https://github.com/gethuman/cookbooks/blob/master/gethuman/attributes/custom.rb)__
+
+```
+default['environment_variables']['ENVIRONMENT_1'] = 'SECRET_1'
+default['environment_variables']['ENVIRONMENT_2'] = 'SECRET_2'
+```
+
+__Stack level environment variables__
 
 ```javascript
 {
@@ -85,7 +91,7 @@ recipe leverages [AWS Attribute Precedence](http://docs.aws.amazon.com/opsworks/
 }
 ```
 
-3. App Level Opsworks Custom JSON
+__App Level Opsworks Custom JSON__
 
 ```javascript
 {
@@ -101,11 +107,12 @@ recipe leverages [AWS Attribute Precedence](http://docs.aws.amazon.com/opsworks/
 }
 ```
 
-4. App Level Opsworks Console (with protected values)
+__App Level Opsworks Console (with protected values)__
 
 ![](http://new.tinygrab.com/d53b50c20608657f4f3d67ffdd7f960f68ee2fe63d.png)
 
-5. Deploy Level
+
+__Deploy Level__
 
 Environment variables can be set on a "per instance deploy".
 Click "Advanced" to show custom JSON settings.
