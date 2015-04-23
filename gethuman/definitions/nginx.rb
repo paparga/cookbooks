@@ -1,4 +1,4 @@
-define :configure_nginx, path: './', user: '', group: '' do
+define :configure_nginx, path: './', user: '', group: '', cached_routes: [] do
   Chef::Log.warn 'configure_nginx'
 
   template File.join(params[:path], '/gethuman.conf') do
@@ -8,6 +8,7 @@ define :configure_nginx, path: './', user: '', group: '' do
     user  params['user']
     owner params['user']
     group params['group']
+    variables({ cached_routes: params['cached_routes'] })
   end
 end
 

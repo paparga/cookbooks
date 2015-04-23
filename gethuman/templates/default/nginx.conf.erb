@@ -111,7 +111,7 @@ http {
   }
 
 # specific routes
-<% node[:nginx][:cached_routes].each do |route| %>
+<% @cached_routes.each do |route| %>
   location <%= route %> {
     add_header            X-Cache-Status $upstream_cache_status;
     proxy_cache           "static-cache";
