@@ -1,8 +1,6 @@
-#
-# Cookbook Name:: pm2
-# Attributes:: default
-#
-# Copyright 2015, Mindera
-#
-
-default_unless['pm2']['version'] = nil
+default['pm2']['app_name']      = 'app'
+default['pm2']['port']          = '8080'
+default['pm2']['path']          = '/var/www/app'
+default['pm2']['user']          = 'nobody'
+default['pm2']['group']         = 'nobody'
+default['pm2']['js']            = 'app.coffee'

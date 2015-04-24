@@ -2,8 +2,7 @@
 # Cookbook Name:: pm2
 # Recipe:: nodejs
 #
-# Copyright 2015, Mindera
+# Copyright 2014, Joe Richards
 #
 
-# Install nodejs
-include_recipe 'nodejs::nodejs_from_binary'
+include_recipe 'nodejs::default'
