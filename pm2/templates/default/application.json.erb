@@ -1,3 +1,12 @@
 {
-    "apps": [<%= @config.to_json %>]
+  "apps": [{
+    "env": {
+      "NODE_ENV": "production",
+      "AWESOME_SERVICE_API_TOKEN": "xxx"
+    },
+    "instances"  : 1,
+    "name"       : "gethuman",
+    "script"     : "server.js",
+    "cwd"        : "/srv/www/sneakyhead/current/",
+  }]
 }

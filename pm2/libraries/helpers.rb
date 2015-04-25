@@ -85,21 +85,13 @@ def pm2_save_apps
   end
 end
 
-def pm2_start_or_restart_app(filename, user)
-  execute "#{user}: pm2 startOrRestart #{filename}" do
-    command "sudo /usr/local/bin/pm2 startOrRestart #{filename} && sudo ls -al /etc/pm2/conf.d/ && sudo /usr/local/bin/pm2 list"
-    command "ls -al /etc/pm2/conf.d/"
-    command "pm2 list"
+def pm2_start_or_restart_app(filename)
+  execute "sudo pm2 startOrRestart #{filename} && sudo /usr/local/bin/pm2 list" do
+#   Chef::Log.warn(`sudo /usr/local/bin/pm2 list`)
+#   Chef::Log.warn(`sudo kill $(sudo lsof -t -i:9001)`)
 
-    command "whoami"
-    command "su #{user}"
-    command "whoami"
-
-    Chef::Log.warn(`sudo ls -al /etc/pm2/conf.d/`)
-    Chef::Log.warn(`sudo /usr/local/bin/pm2 list`)
-    Chef::Log.warn(`cat /etc/pm2/conf.d/server.json`)
-    Chef::Log.warn(`sudo /usr/local/bin/pm2 startOrRestart #{filename} && sudo ls -al /etc/pm2/conf.d/ && sudo /usr/local/bin/pm2 list`)
-    Chef::Log.warn(`echo "$USER"`)
+#   Chef::Log.warn(`sudo pm2 startOrRestart #{filename} && sudo /usr/local/bin/pm2 list`)
+#   Chef::Log.warn(`ls -al /etc/pm2/conf.d/`)
   end
 end
 

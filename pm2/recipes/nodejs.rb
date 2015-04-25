@@ -10,8 +10,16 @@
 node['deploy'].each do |application, deploy|
   ruby_block "stop node.js application #{application}" do
     block do
+      Chef::Log.warn(`ps aux | grep node`)
+      Chef::Log.warn(`monit status`)
+      Chef::Log.warn(`sleep 70`)
+
       Chef::Log.info("stop node.js via: #{node[:deploy][application][:nodejs][:stop_command]}")
       Chef::Log.info(`#{node[:deploy][application][:nodejs][:stop_command]}`)
+      Chef::Log.warn(`monit status`)
+      Chef::Log.warn(`lsof -i :80`)
+      Chef::Log.warn(`sudo pkill node`)
+      Chef::Log.warn(`lsof -i :80`)
       $? == 0
     end
   end

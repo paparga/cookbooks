@@ -5,7 +5,7 @@
 # Constants
 PM2_VERSION = node['pm2']['version']
 
-# Install npm
+# Install npm 0.12
 include_recipe 'pm2::nodejs'
 
 # Install pm2
