@@ -20,7 +20,7 @@ node['deploy'].each do |application, deploy|
   end
 
   pm2_application 'server' do
-    dir = "#{deploy['deploy_to']}/releases/current/"
+    dir = "#{deploy['deploy_to']}/current/"
     cwd dir
     script 'server.js'
 
