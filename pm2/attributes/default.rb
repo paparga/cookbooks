@@ -1,6 +1,8 @@
-default['pm2']['app_name']      = 'app'
-default['pm2']['port']          = '80'
-default['pm2']['path']          = '/var/www/app'
-default['pm2']['user']          = 'nobody'
-default['pm2']['group']         = 'nobody'
-default['pm2']['js']            = 'server.js'
+#
+# Cookbook Name:: pm2
+# Attributes:: default
+#
+# Copyright 2015, Mindera
+#
+
+default_unless['pm2']['version'] = nil
