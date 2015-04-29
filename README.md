@@ -43,7 +43,7 @@ starting at line 89. This follows the
 The chef recipe does (?), but most of the work is in the 
 [nginx conf](https://github.com/gethuman/cookbooks/blob/master/gethuman/templates/default/nginx.conf.erb)
 starting at line 113. The key here is to set the cached_routes environment variable with the
-routes that need to be cached.
+routes that need to be cached. The routes follow the [ngnix rules for paths](http://nginx.org/en/docs/http/ngx_http_core_module.html#location).
 
 ### nodejs
 
