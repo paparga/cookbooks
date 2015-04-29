@@ -22,6 +22,7 @@ Do these first
 Misc notes
 
 * Only one app that needs to be called 'App' when created, but then can be changed
+* Put env variables at app level and then also environment
 
 ## Recipes
 
