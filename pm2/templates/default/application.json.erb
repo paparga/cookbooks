@@ -8,7 +8,7 @@
       "cwd"         : "/srv/www/app/current/",
       "error_file"  : "./log/out.log",
       "out_file"    : "./log/out.log",
-      "env"         : <%= node[:deploy]['app'][:environment_variables] %>
+      "env"         : <%= node[:deploy]['app'][:environment_variables].to_json %>
     }
   ]
 }
