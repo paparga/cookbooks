@@ -1,1 +1,1 @@
-default[:cwlogs][:logfile] = '/srv/www/app/shared/log/out.log'
+default[:cwlogs][:logfile] = '/srv/www/app/current/log/out.log'
