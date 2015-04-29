@@ -91,7 +91,7 @@ http {
       server_name  *.gethuman.com;
     # use 302 for testing
     # use 301 for production
-      return 302  https://www.gethuman.com$request_uri;
+      return 302  https://gethuman.com$request_uri;
   }
 
   server {
@@ -99,7 +99,7 @@ http {
       server_name http://www.gethuman.co;
     # use 302 for testing
     # use 301 for production
-      return 302  https://www.gethuman.com$request_uri;
+      return 302  https://gethuman.com$request_uri;
   }
 
   server {
@@ -107,7 +107,7 @@ http {
       server_name  *.gethuman.co;
     # use 302 for testing
     # use 301 for production
-      return 302  https://www.gethuman.com$request_uri;
+      return 302  https://gethuman.com$request_uri;
   }
 
 # specific routes

@@ -1,13 +1,27 @@
 # GetHuman AWS OpsWorks Cookbooks
 
-  A collection of cookbooks used by GetHuman for some deployments. We tried to set this up in a generic
-  way so it actually could be used by anyone. At a high level, these cookbooks work on top of the
-  default AWS OpsWorks cookbooks. Anything GetHuman-specific has been abstracted out into environment
-  variables that can be set at the App level in an OpsWorks stack. The information in this README
-  includes:
-  
-  * Recipes - The unique recipes for this repo
-  * ToDos
+A collection of cookbooks used by GetHuman for some deployments. We tried to set this up in a generic
+way so it actually could be used by anyone. At a high level, these cookbooks work on top of the
+default AWS OpsWorks cookbooks. Anything GetHuman-specific has been abstracted out into environment
+variables that can be set at the App level in an OpsWorks stack. The information in this README
+includes:
+
+* Dev Setup - Setup for dev that want to modify cookbooks
+* Recipes - The unique recipes for this repo
+* ToDos
+
+## Dev Setup
+
+Do these first
+
+1. Install ruby
+1. gem install foodcritic
+1. brew install Caskroom/cask/chefdk
+  * Note: this will install [Berkshelf](http://berkshelf.com/)
+
+Misc notes
+
+* Only one app that needs to be called 'App' when created, but then can be changed
 
 ## Recipes
 
