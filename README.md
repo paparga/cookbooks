@@ -24,14 +24,6 @@ Misc notes
 * Only one app that needs to be called 'App' when created, but then can be changed
 * Put env variables at app level and then also environment
 
-Minimum cookbooks on custom layer?
-
-* Setup - nodejs-wrapper-opsworks, nodejs-wrapper-opsworks::create-symlink
-* Configure - opsworks_nodejs::configure
-* Deploy - nodejs, deploy::nodejs
-* Undeploy - deploy::nodejs-undeploy
-* Shutdown - deploy::nodejs-stop
-
 ## Recipes
 
 When this repo is added to an OpsWorks stack, the following 

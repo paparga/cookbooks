@@ -11,5 +11,7 @@
 #normal[:opsworks][:deploy_user][:shell] = '/bin/zsh'
 #normal[:opsworks][:deploy_user][:user] = 'deploy'
 
-default[:deploy][application][:nodejs][:restart_command] = "sudo pm2 restart all"
-default[:deploy][application][:nodejs][:stop_command] = "sudo pm2 stop all"
+node[:deploy].each do |application, deploy|
+    default[:deploy][application][:nodejs][:restart_command] = "sudo pm2 restart all"
+    default[:deploy][application][:nodejs][:stop_command] = "sudo pm2 stop all"
+end
