@@ -69,14 +69,13 @@ Procfile
 
 # Berkshelf #
 #############
-Berksfile
-Berksfile.lock
 cookbooks/*
 tmp
 
 # Cookbooks #
 #############
 CONTRIBUTING
+CHANGELOG*
 
 # Strainer #
 ############
@@ -93,4 +92,3 @@ Vagrantfile
 # Travis #
 ##########
 .travis.yml
-
