@@ -8,3 +8,4 @@
 #
 
 include_recipe 'nodejs'
+include_recipe 'nodejs_from_binary'
