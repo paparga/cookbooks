@@ -26,6 +26,16 @@ Misc notes
 
 ## Recipes
 
+This is what we have so far for the new custom layer we are working on:
+
+* **setup** - logs::config, logs::install, nodejs-wrapper-opsworks, nodejs-wrapper-opsworks::create-symlink
+* **configure** - opsworks_nodejs::configure
+* **deploy** - deploy::nodejs, pm2
+* **undeploy** - deploy::nodejs-undeploy
+* **shutdown** - deploy::nodejs-stop
+
+## Info being refactored
+
 When this repo is added to an OpsWorks stack, the following 
 [default recipes](https://github.com/gethuman/cookbooks/blob/master/gethuman/recipes/default.rb) 
 are automatically added:
