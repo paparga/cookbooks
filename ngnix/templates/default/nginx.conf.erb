@@ -1,0 +1,124 @@
+#user <%= node[:nginx][:user] %>;
+#worker_processes  <%= node[:nginx][:worker_processes] %>;
+
+error_log  <%= node[:nginx][:log_dir] %>/error.log;
+pid        <%= node[:nginx][:pid_file] %>;
+
+events {
+  worker_connections  <%= node[:nginx][:worker_connections] %>;
+}
+
+http {
+  include       <%= node[:nginx][:dir] %>/mime.types;
+  default_type  application/octet-stream;
+
+  access_log <%= node[:nginx][:log_dir] %>/access.log;
+
+  sendfile on;
+  tcp_nodelay on;
+
+  <% node[:nginx][:log_format].each do |name, format| %>
+  log_format <%= name %> <%= format %>;
+  <% end %>
+
+# gzip  <%= node[:nginx][:gzip] %>;
+# gzip_static  <%= node[:nginx][:gzip_static] %>;
+# <% if node[:nginx][:gzip] == "on" %>
+# gzip_http_version <%= node[:nginx][:gzip_http_version] %>;
+# gzip_comp_level <%= node[:nginx][:gzip_comp_level] %>;
+# gzip_proxied <%= node[:nginx][:gzip_proxied] %>;
+# gzip_types <%= node[:nginx][:gzip_types].join(' ') %>;
+# gzip_vary <%= node[:nginx][:gzip_vary] %>;
+# gzip_disable "<%= node[:nginx][:gzip_disable] %>";
+# <% end %>
+
+  client_max_body_size <%= node[:nginx][:client_max_body_size] %>;
+
+  server_names_hash_bucket_size <%= node[:nginx][:server_names_hash_bucket_size] %>;
+
+  include <%= node[:nginx][:dir] %>/conf.d/*.conf;
+  include <%= node[:nginx][:dir] %>/sites-enabled/*;
+
+  #Caching
+  proxy_redirect off;
+  proxy_http_version 1.1;
+  proxy_cache_min_uses 5;
+  proxy_cache_valid any 1m;
+  proxy_set_header Host $host;
+  proxy_cache_methods GET HEAD;
+  proxy_cache_bypass $http_upgrade;
+  proxy_set_header Connection 'upgrade';
+  proxy_cache_key sfs$request_uri$scheme;
+
+  proxy_cache_path <%= node[:nginx][:dir] %>/cache keys_zone=one:10m keys_zone=czone:32m
+                   loader_threshold=300 loader_files=200
+                   levels=1:2 max_size=256m inactive=1m;
+
+  # SSL
+  ssl_certificate /some/location/sillyfacesociety.com.bundle.crt;
+  ssl_certificate_key /some/location/sillyfacesociety.com.key;
+  ssl_protocols        SSLv3 TLSv1;
+  ssl_ciphers HIGH:!aNULL:!MD5;
+
+
+  server {
+    listen 443 ssl;
+    ssl_protocols SSLv3 TLSv1;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_certificate_key /some/location/sillyfacesociety.com.key;
+    ssl_certificate /some/location/sillyfacesociety.com.bundle.crt;
+  }
+
+  # the nginx server instance
+  server {
+    proxy_cache one;
+
+# http://nginx.org/en/docs/http/server_names.html
+    listen 80 default_server;
+
+    server_name  gethuman.com;
+#   rewrite ^ $scheme://www.gethuman.com$request_uri permanent;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarder-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-NginX-Proxy true;
+    add_header X-Proxy-Cache $upstream_cache_status;
+    proxy_pass https://127.0.0.1:8888;
+  }
+
+  server {
+      listen       80;
+      server_name  *.gethuman.com;
+    # use 302 for testing
+    # use 301 for production
+      return 302  https://gethuman.com$request_uri;
+  }
+
+  server {
+      listen      80;
+      server_name http://www.gethuman.co;
+    # use 302 for testing
+    # use 301 for production
+      return 302  https://gethuman.com$request_uri;
+  }
+
+  server {
+      listen       80;
+      server_name  *.gethuman.co;
+    # use 302 for testing
+    # use 301 for production
+      return 302  https://gethuman.com$request_uri;
+  }
+
+# specific routes
+<% (@cached_routes || []).each do |route| %>
+  location <%= route %> {
+    add_header            X-Cache-Status $upstream_cache_status;
+    proxy_cache           "static-cache";
+    proxy_cache_valid     200 3600m;
+    proxy_cache_min_uses  1;
+    proxy_cache_use_stale error timeout invalid_header http_500;
+    proxy_ignore_headers  "X-Accel-Expires" "Expires" "Cache-Control" "Set-Cookie";
+  }
+<% end %>
+}

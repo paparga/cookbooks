@@ -26,7 +26,7 @@ Misc notes
 
 ## Recipes
 
-This is what we have so far for the new custom layer we are working on:
+You will need to use a custom layer within OpsWorks. Then include these recipes:
 
 * **setup** - logs::config, logs::install, nodejs-wrapper-opsworks, nodejs-wrapper-opsworks::create-symlink
 * **configure** - opsworks_nodejs::configure
@@ -65,6 +65,12 @@ set up a CloudWatch agent on the servers in order to capture logs.
 explains what is going on. 
 
 Note that this is not working yet. Need work here to figure it out.
+
+
+
+
+
+
 
 
 
