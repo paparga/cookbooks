@@ -34,6 +34,38 @@ This is what we have so far for the new custom layer we are working on:
 * **undeploy** - deploy::nodejs-undeploy
 * **shutdown** - deploy::nodejs-stop
 
+#### nodejs-wrapper-opsworks
+
+There are two changes that needed to be made from the [original repo](https://github.com/zupper/nodejs-wrapper-opsworks).
+First, in attributes/default.rb, we needed to set the following:
+
+```
+default['nodejs']['version'] = '0.12.2'
+default["nodebin"]["location"] = '/usr/bin/node'
+default["nodebin"]["opsworks_location"] = '/usr/local/bin/node'
+```
+
+Then in recipes/default.rb we changed the following:
+
+```
+# need to install from binary or it won't work for some reason
+# include_recipe 'nodejs'
+include_recipe 'nodejs::nodejs_from_binary'
+```
+
+This recipe wraps the nodejs cookbook and basically installs our desired version of Node.js (or io.js) on
+OpsWorks. The create-symlink recipe is called right after the node install in order to create a symlink
+from the place where OpsWorks expects node to be to the installed version from the nodejs recipe.
+
+#### logs
+
+This is not working yet. The idea is to send log files to CloudWatch, but need to figure out what
+the issue is. The idea for this recipe came 
+[from this blog post](http://blogs.aws.amazon.com/application-management/post/TxTX72HFKVS9W9/Using-Amazon-CloudWatch-Logs-with-AWS-OpsWorks).
+
+
+
+
 ## Info being refactored
 
 When this repo is added to an OpsWorks stack, the following 
