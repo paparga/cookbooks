@@ -1,6 +1,7 @@
 
 # Override the version to 0.12
 default['nodejs']['version'] = '0.12.2'
+default['nodejs']['install_method'] = 'binary'
 
 # Override the repo
 # case node['platform_family']

@@ -59,28 +59,16 @@ from the place where OpsWorks expects node to be to the installed version from t
 
 #### logs
 
-This is not working yet. The idea is to send log files to CloudWatch, but need to figure out what
-the issue is. The idea for this recipe came 
-[from this blog post](http://blogs.aws.amazon.com/application-management/post/TxTX72HFKVS9W9/Using-Amazon-CloudWatch-Logs-with-AWS-OpsWorks).
-
-
-
-
-## Info being refactored
-
-When this repo is added to an OpsWorks stack, the following 
-[default recipes](https://github.com/gethuman/cookbooks/blob/master/gethuman/recipes/default.rb) 
-are automatically added:
-
-#### logs
-
-* lifecycle stage: setup
-* recipes: logs::config logs::install
- 
 We are using a [shared logging cookbook](https://github.com/awslabs/opsworks-cloudwatch-logs-cookbooks) to
 set up a CloudWatch agent on the servers in order to capture logs. 
 [This article](http://blogs.aws.amazon.com/application-management/post/TxTX72HFKVS9W9/Using-Amazon-CloudWatch-Logs-with-AWS-OpsWorks)
-explains what is going on. Basic gist, though, is to go to CloudWatch in the AWS console to view any logs.
+explains what is going on. 
+
+Note that this is not working yet. Need work here to figure it out.
+
+
+
+## refactor below
 
 #### ssl
 

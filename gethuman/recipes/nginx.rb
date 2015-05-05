@@ -29,4 +29,7 @@ node['deploy'].each do |application, deploy|
   service 'nginx' do
     action [ :start, :enable ]
   end
+
+  # ssl and caching here?
+
 end
