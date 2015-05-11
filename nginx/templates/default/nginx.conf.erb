@@ -1,8 +1,8 @@
 
 # see docs here: http://wiki.nginx.org/DirectiveIndex
 
-# set to www-data, but not totally sure why
-user <%= node[:nginx][:user] %>;
+# no user set for now
+# user <%= node[:nginx][:user] %>;
 
 # set to 1 since we only have 1 CPU
 worker_processes  <%= node[:nginx][:worker_processes] %>;
