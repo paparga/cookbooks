@@ -10,3 +10,7 @@
 #
 #normal[:nginx][:gzip] = 'off'
 #normal[:nginx][:gzip_static] = 'off'
+
+normal[:nginx][:user]               = "www-data"
+normal[:nginx][:worker_processes]   = 1
+normal[:nginx][:worker_connections] = 4096

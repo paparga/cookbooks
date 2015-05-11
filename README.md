@@ -28,11 +28,11 @@ Misc notes
 
 You will need to use a custom layer within OpsWorks. Then include these recipes:
 
-* **setup** - logs::config, logs::install, nodejs-wrapper, nodejs-wrapper::create-symlink, nodejs-wrapper::binary
-* **configure** - opsworks_nodejs::configure
+* **setup** - logs::config, logs::install, nodejs-wrapper, nodejs-wrapper::create-symlink, nginx
+* **configure** - opsworks_nodejs::configure, nodejs-wrapper::binary
 * **deploy** - deploy::nodejs, pm2
 * **undeploy** - deploy::nodejs-undeploy
-* **shutdown** - deploy::nodejs-stop
+* **shutdown** - deploy::nodejs-stop, nginx::stop
 
 #### nodejs-wrapper
 
@@ -105,7 +105,14 @@ will get blown away with a restart. Need to have the deploy set the application 
 
 #### ngnix
 
-There is an OpsWorks cookbook called ngnix, so this is an overwrite of that cookbook. 
+The main goal here is to install nginx and start it up based on the custom nginx.conf file (which
+comes from nginx/templates/default/nginx.conf.erb). The custom nginx.conf file contains the following:
+
+* **logs** - Error and access logs sent to /var/log/nginx
+* **gzip** - Responses gzipped
+* **proxy** - All requests proxied to port 8888 for the node process
+
+In the future we may add page caching here and/or auto-redirects.
 
 #### gethuman
 
