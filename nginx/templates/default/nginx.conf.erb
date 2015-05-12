@@ -52,19 +52,19 @@ http {
     include <%= node[:nginx][:dir] %>/sites-enabled/*;
 
     #Caching
-    proxy_redirect off;
-    proxy_http_version 1.1;
-    proxy_cache_min_uses 5;
-    proxy_cache_valid any 1m;
-    proxy_set_header Host $host;
-    proxy_cache_methods GET HEAD;
-    proxy_cache_bypass $http_upgrade;
-    proxy_set_header Connection 'upgrade';
-    proxy_cache_key sfs$request_uri$scheme;
+    #proxy_redirect off;
+    #proxy_http_version 1.1;
+    #proxy_cache_min_uses 5;
+    #proxy_cache_valid any 1m;
+    #proxy_set_header Host $host;
+    #proxy_cache_methods GET HEAD;
+    #proxy_cache_bypass $http_upgrade;
+    #proxy_set_header Connection 'upgrade';
+    #proxy_cache_key sfs$request_uri$scheme;
 
-    proxy_cache_path <%= node[:nginx][:dir] %>/cache keys_zone=one:10m keys_zone=czone:32m
-                   loader_threshold=300 loader_files=200
-                   levels=1:2 max_size=256m inactive=1m;
+    #proxy_cache_path <%= node[:nginx][:dir] %>/cache keys_zone=one:10m keys_zone=czone:32m
+                   #loader_threshold=300 loader_files=200
+                   #levels=1:2 max_size=256m inactive=1m;
 
     # SSL
     #ssl_certificate /some/location/sillyfacesociety.com.bundle.crt;
@@ -91,11 +91,17 @@ http {
 
         location / {
             proxy_pass http://127.0.0.1:8888;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarder-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-NginX-Proxy true;
-            add_header X-Proxy-Cache $upstream_cache_status;
+            proxy_redirect off;
+            proxy_buffering off;
+            proxy_set_header        Host            $http_host;
+            proxy_set_header        X-Real-IP       $remote_addr;
+            proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+
+            # proxy_set_header Upgrade $http_upgrade;
+            # proxy_set_header X-Real-IP $remote_addr;
+            # proxy_set_header X-Forwarder-For $proxy_add_x_forwarded_for;
+            # proxy_set_header X-NginX-Proxy true;
+            # add_header X-Proxy-Cache $upstream_cache_status;
         }
     }
 
