@@ -7,8 +7,9 @@ variables that can be set at the App level in an OpsWorks stack. The information
 includes:
 
 * Dev Setup - Setup for dev that want to modify cookbooks
-* Recipes - The unique recipes for this repo
-* ToDos
+* Requirements - Project requirements to use these cookbooks
+* Recipes - A description of the recipes in this repo
+* ToDos - Stuff I haven't gotten to yet, but is on the agenda
 
 ## Dev Setup
 
@@ -19,10 +20,19 @@ Do these first
 1. brew install Caskroom/cask/chefdk
   * Note: this will install [Berkshelf](http://berkshelf.com/)
 
-Misc notes
+## Requirements
 
-* Only one app that needs to be called 'App' when created, but then can be changed
-* Put env variables at app level and then also environment
+These recipes are meant to be used on AWS OpsWorks for an app that meets the following criteria:
+
+* Only one app that needs to be called 'App' when created, but then can be changed (i.e. so short name remains simply 'app')
+* Put env variables at app level. You can, however, add additional environment variables within the deploy script.
+* If you are using an API and Web off of the same app, you will need to assign the following short names to the layers:
+    * api-layer
+    * web-layer
+    
+The layers are explicitly named that way because the pm2 cookbook will add an environment variable of CONTAINER with
+either 'web' or 'api' as appropriate according to the layer name. If you don't care about this environment variable,
+then ignore this part.
 
 ## Recipes
 
@@ -95,7 +105,8 @@ end
 #### pm2
 
 Essentially this recipe just starts or restarts the node processes through pm2. However, the application.json
-is configured for the box through pm2/templates/default/application.json.erb. In this template, you can see
+is configured for the box through pm2/templates/default/application.json.erb (deployed to 
+/etc/pm2/conf.d/server.json). In this template, you can see
 that we set some pm2 configuration options and then put all the environment variables passed into
 custom JSON into the pm2 process environment variables. So, in other words, when you execute this recipe,
 you can pass in environment variables which would be accessible by the node application once it starts up.

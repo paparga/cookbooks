@@ -1,14 +1,14 @@
 {
-  "apps": [
-    {
-      "name"        : "app",
-      "instances"   : 1,
-      "exec_mode"   : "fork_mode",
-      "script"      : "start.js",
-      "cwd"         : "/srv/www/app/current/",
-      "error_file"  : "/srv/www/app/current/log/out.log",
-      "out_file"    : "/srv/www/app/current/log/out.log",
-      "env"         : <%= node[:deploy]['app'][:environment_variables].to_json %>
-    }
-  ]
+    "apps": [
+        {
+            "name"        : "app",
+            "instances"   : 1,
+            "exec_mode"   : "fork_mode",
+            "script"      : "start.js",
+            "cwd"         : "/srv/www/app/current/",
+            "error_file"  : "/srv/www/app/current/log/out.log",
+            "out_file"    : "/srv/www/app/current/log/out.log",
+            "env"         : <%= node[:deploy]['app'][:environment_variables].to_json %>
+        }
+    ]
 }
