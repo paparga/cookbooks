@@ -86,11 +86,11 @@ def pm2_save_apps
 end
 
 def pm2_start_or_restart_app(filename)
-  execute "sudo pm2 startOrRestart #{filename} && sudo /usr/local/bin/pm2 list" do
+  execute "sudo pm2 startOrReload #{filename} && sudo /usr/local/bin/pm2 list" do
 #   Chef::Log.warn(`sudo /usr/local/bin/pm2 list`)
 #   Chef::Log.warn(`sudo kill $(sudo lsof -t -i:9001)`)
 
-#   Chef::Log.warn(`sudo pm2 startOrRestart #{filename} && sudo /usr/local/bin/pm2 list`)
+#   Chef::Log.warn(`sudo pm2 startOrReload #{filename} && sudo /usr/local/bin/pm2 list`)
 #   Chef::Log.warn(`ls -al /etc/pm2/conf.d/`)
   end
 end

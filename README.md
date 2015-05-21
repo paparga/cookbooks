@@ -38,7 +38,7 @@ then ignore this part.
 
 You will need to use a custom layer within OpsWorks. Then include these recipes:
 
-* **setup** - logs::config, logs::install, nodejs-wrapper, nodejs-wrapper::create-symlink, nginx
+* **setup** - logs::config, logs::install, nodejs-wrapper, nodejs-wrapper::create-symlink
 * **configure** - opsworks_nodejs::configure, nodejs-wrapper::binary
 * **deploy** - deploy::nodejs, pm2
 * **undeploy** - deploy::nodejs-undeploy
@@ -114,7 +114,11 @@ you can pass in environment variables which would be accessible by the node appl
 ToDo: one issue is that if we set an environment variable in custom JSON during deploy, that variable
 will get blown away with a restart. Need to have the deploy set the application level environment variables.
 
-#### ngnix
+#### nginx
+
+**NOTE**: This is not currently being used by GetHuman. I removed it temporarily and just have
+pm2 running since nginx was creating unnecessary complexity. I will add it back once I start
+to work on page caching, etc.
 
 The main goal here is to install nginx and start it up based on the custom nginx.conf file (which
 comes from nginx/templates/default/nginx.conf.erb). The custom nginx.conf file contains the following:
@@ -124,12 +128,6 @@ comes from nginx/templates/default/nginx.conf.erb). The custom nginx.conf file c
 * **proxy** - All requests proxied to port 8888 for the node process
 
 In the future we may add page caching here and/or auto-redirects.
-
-#### gethuman
-
-This recipe is deprecated and will be removed once we get everything else working. Most of the functionality
-has been moved to the ngnix cookbook. The only thing changed (for now) from the OpsWorks version
-is the nginx.conf which is located here: ngnix/templates/default/nginx.conf.erb.
 
 ToDo: need to test this out and get the following functionality working:
 
