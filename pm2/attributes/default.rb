@@ -16,4 +16,6 @@ if layers.include?("api-layer")
     default[:deploy]["app"][:environment_variables]["CONTAINER"] = "api"
 elsif layers.include?("web-layer")
     default[:deploy]["app"][:environment_variables]["CONTAINER"] = "web"
+else
+    default[:deploy]["app"][:environment_variables]["CONTAINER"] = "unknown"
 end
