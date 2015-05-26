@@ -14,11 +14,11 @@ layers = node[:opsworks][:instance][:layers]
 
 if layers.include?("api-layer")
     Chef::Log.info("** setting container to api")
-    default[:deploy]["app"][:environment_variables]["CONTAINER"] = "api"
+    normal[:deploy]["app"][:environment_variables]["CONTAINER"] = "api"
 elsif layers.include?("web-layer")
     Chef::Log.info("** setting container to web")
-    default[:deploy]["app"][:environment_variables]["CONTAINER"] = "web"
+    normal[:deploy]["app"][:environment_variables]["CONTAINER"] = "web"
 else
     Chef::Log.info("** setting container to unknown")
-    default[:deploy]["app"][:environment_variables]["CONTAINER"] = "unknown"
+    normal[:deploy]["app"][:environment_variables]["CONTAINER"] = "unknown"
 end
