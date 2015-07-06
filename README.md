@@ -50,7 +50,7 @@ There are two changes that needed to be made from the [original repo](https://gi
 First, in attributes/default.rb, we needed to set the following:
 
 ```
-default['nodejs']['version'] = '0.12.2'
+default['nodejs']['version'] = '0.12.6'
 default["nodebin"]["location"] = '/usr/bin/node'
 default["nodebin"]["opsworks_location"] = '/usr/local/bin/node'
 ```
