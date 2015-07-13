@@ -36,40 +36,13 @@ default['zabbix']['agent']['shell']          = '/bin/bash'
 default['zabbix']['agent']['user_parameter'] = []
 
 # zabbix_agent.conf file set to documented defaults
-default['zabbix']['agent']['conf']['Alias']       = nil
-default['zabbix']['agent']['conf']['AllowRoot']   = '0'
-default['zabbix']['agent']['conf']['BufferSend']  = '5'
-default['zabbix']['agent']['conf']['BufferSize']  = '100'
-default['zabbix']['agent']['conf']['DebugLevel']  = '3'
-# default['zabbix']['agent']['conf']['EnableRemoteCommands'] = '0'
-default['zabbix']['agent']['conf']['EnableRemoteCommands'] = '1'
-default['zabbix']['agent']['conf']['HostMetadata'] = nil
-default['zabbix']['agent']['conf']['Hostname']     = nil # defaults to HostnameItem
-# default['zabbix']['agent']['conf']['HostnameItem'] = nil # set by system.hostname
-default['zabbix']['agent']['conf']['HostnameItem'] = 'system.run[hostname -f]'
-# default['zabbix']['agent']['conf']['Include']  = nil #default
-default['zabbix']['agent']['conf']['Include']      = default['zabbix']['agent']['include_dir']
-default['zabbix']['agent']['conf']['ListenIP']     = '0.0.0.0'
-default['zabbix']['agent']['conf']['ListenPort']   = '10050'
-default['zabbix']['agent']['conf']['LoadModule']   = nil
-default['zabbix']['agent']['conf']['LogFile']      = nil
-default['zabbix']['agent']['conf']['LogFileSize']  = '1'
-default['zabbix']['agent']['conf']['LogRemoteCommands']  = '0'
-default['zabbix']['agent']['conf']['MaxLinesPerSecond']  = '100'
-# default['zabbix']['agent']['conf']['PidFile']  = '/tmp/zabbix_agentd.pid'
 default['zabbix']['agent']['conf']['PidFile']  = '/var/run/zabbix/zabbix_agentd.pid'
-default['zabbix']['agent']['conf']['RefreshActiveChecks']  = '120'
-# default['zabbix']['agent']['conf']['Server']  = nil #default
+default['zabbix']['agent']['conf']['LogFile']  = 'var/log/zabbix/zabbix_agentd.log'
+default['zabbix']['agent']['conf']['LogFileSize']  = '1'
 default['zabbix']['agent']['conf']['Server']       = '172.31.80.4'
 default['zabbix']['agent']['conf']['ServerActive'] = '172.31.80.4'
-default['zabbix']['agent']['conf']['SourceIP']     = nil
-default['zabbix']['agent']['conf']['StartAgents']  = '3'
-default['zabbix']['agent']['conf']['Timeout']      = '3'
-default['zabbix']['agent']['conf']['UnsafeUserParameters']  = '0'
-if node['zabbix']['agent']['version'].match(/2\.4\..*/)
-  default['zabbix']['agent']['conf']['User']          = default['zabbix']['agent']['user']
-end
-# default['zabbix']['agent']['conf']['UserParameter'] = nil # favor user_parameter in seperate included file
+default['zabbix']['agent']['conf']['HostnameItem'] = 'system.run[hostname -f]'
+default['zabbix']['agent']['conf']['Include']      = default['zabbix']['agent']['include_dir']
 
 default['zabbix']['install_dir']  = '/opt/zabbix'
 
