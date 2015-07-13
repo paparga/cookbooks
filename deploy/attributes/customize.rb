@@ -13,7 +13,7 @@
 
 unless node[:deploy].nil?
     node[:deploy].each do |application, deploy|
-        normal[:deploy][application][:nodejs][:restart_command] = "sudo pm2 startOrRestart /etc/pm2/conf.d/server.json"
+        normal[:deploy][application][:nodejs][:restart_command] = "sudo pm2 startOrReload /etc/pm2/conf.d/server.json"
         normal[:deploy][application][:nodejs][:stop_command] = "sudo pm2 stop all"
     end
 end

@@ -96,8 +96,8 @@ def pm2_start_or_restart_app(filename)
 end
 
 def pm2_start_or_reload_app(filename)
-  execute "pm2 startOrRestart #{filename}" do
-    command "pm2 startOrRestart #{filename}"
+  execute "pm2 startOrReload #{filename}" do
+    command "pm2 startOrReload #{filename}"
   end
 end
 
