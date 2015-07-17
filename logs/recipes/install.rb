@@ -12,12 +12,16 @@ command "/opt/aws/cloudwatch/awslogs-agent-setup-v1.0.py -n -r us-east-1 -c /tmp
 not_if { system "pgrep -f aws-logs-agent-setup" }
 end
 
-include_recipe "logrotate"
-
-logrotate_app "newrelic" do
-  cookbook  "logrotate"
-  path      "/srv/www/app/current/newrelic_agent.log"
-  options   ["copytruncate", "missingok", "notifempty"],
-  frequency "daily"
-  rotate    7
+file '/etc/logrotate.d/newrelic' do
+  mode 0644
+  owner 'root'
+  group 'root'
+  content '/var/log/zabbix/zabbix_agentd.log {
+        missingok
+        rotate 7
+        daily
+        notifempty
+        compress
+        copytruncate
+        }'
 end
