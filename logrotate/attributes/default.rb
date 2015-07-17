@@ -22,10 +22,18 @@ default['logrotate']['global'] = {
   'rotate' => 4,
   'create' => '',
 
-  '/srv/www/app/current/newrelic_agent.log' => {
-    'missingok'   => true,
-    'daily'       => true,
-    'options'     => ["copytruncate", "missingok", "notifempty"],
-    'rotate'      => 7
+  '/var/log/wtmp' => {
+    'missingok' => true,
+    'monthly' => true,
+    'create' => '0664 root utmp',
+    'rotate' => 1
+  },
+
+  '/var/log/btmp' => {
+    'missingok' => true,
+    'monthly' => true,
+    'create' => '0660 root utmp',
+    'rotate' => 1
   }
+
 }
