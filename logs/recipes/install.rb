@@ -16,7 +16,7 @@ file '/etc/logrotate.d/newrelic' do
   mode 0644
   owner 'root'
   group 'root'
-  content '/var/log/zabbix/zabbix_agentd.log {
+  content '/srv/www/app/current/newrelic_agent.log {
         missingok
         rotate 7
         daily
