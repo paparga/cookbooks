@@ -11,3 +11,13 @@ execute "Install CloudWatch Logs agent" do
 command "/opt/aws/cloudwatch/awslogs-agent-setup-v1.0.py -n -r us-east-1 -c /tmp/cwlogs.cfg"
 not_if { system "pgrep -f aws-logs-agent-setup" }
 end
+
+include_recipe "logrotate"
+
+logrotate_app "newrelic" do
+  cookbook  "logrotate"
+  path      "/srv/www/app/current/newrelic_agent.log"
+  options   ["copytruncate", "missingok", "notifempty"],
+  frequency "daily"
+  rotate    7
+end
