@@ -25,3 +25,8 @@ file '/etc/logrotate.d/newrelic' do
         copytruncate
         }'
 end
+
+cron "newrelic_rotation" do
+ hour "*"
+ command "/usr/sbin/logrotate /etc/logrotate.d/newrelic"
+end
