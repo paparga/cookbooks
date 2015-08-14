@@ -1,6 +1,6 @@
 
 # Override node the version
-default['nodejs']['version'] = '0.12.6'
+default['nodejs']['version'] = '0.12.7'
 # default['nodejs']['install_method'] = 'binary'
 
 default["nodebin"]["location"] = '/usr/bin/node'
