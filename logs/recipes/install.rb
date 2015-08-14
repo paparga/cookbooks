@@ -18,10 +18,15 @@ file '/etc/logrotate.d/newrelic' do
   group 'root'
   content '/srv/www/app/current/newrelic_agent.log {
         missingok
-        rotate 7
-        hourly
+        rotate 2
         notifempty
+        size 500M
         compress
         copytruncate
         }'
+end
+
+cron "newrelic_rotation" do
+ hour "*"
+ command "/usr/sbin/logrotate /etc/logrotate.d/newrelic"
 end
