@@ -1,6 +1,6 @@
 
 # Override node the version
-default['nodejs']['engine'] => 'iojs'
+default['nodejs']['engine'] = 'iojs'
 default['nodejs']['version'] = '3.2.0'
 # default['nodejs']['install_method'] = 'binary'
 
