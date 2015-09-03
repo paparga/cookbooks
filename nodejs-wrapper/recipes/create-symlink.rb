@@ -8,5 +8,9 @@
 #
 
 link node["nodebin"]["opsworks_location"] do
-  to node["nodebin"]["location"]
+  to node["nodebin"]["iojs_location"]
+end
+
+link node["nodebin"]["location"] do
+  to node["nodebin"]["iojs_location"]
 end
