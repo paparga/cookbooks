@@ -14,11 +14,6 @@ nodejs_npm 'pm2' do
 end
 
 node['deploy'].each do |application, deploy|
-  if deploy[:application_type] != 'nodejs'
-    Chef::Log.debug("Skipping deploy::nodejs-restart for application #{application} as it is not a node.js app")
-    next
-  end
-
   pm2_application 'server' do
     dir = "#{deploy['deploy_to']}/current/"
     cwd dir
