@@ -7,5 +7,5 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'iojs'
+include_recipe 'nodejs::iojs'
 include_recipe 'nodejs::nodejs_from_binary'
