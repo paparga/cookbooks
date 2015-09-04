@@ -17,6 +17,10 @@ link "/usr/bin/pm2" do
   to "/usr/local/iojs-binary-3.2.0/bin/pm2"
 end
 
+link "/usr/local/bin/pm2" do
+  to "/usr/local/iojs-binary-3.2.0/bin/pm2"
+end
+
 node['deploy'].each do |application, deploy|
   pm2_application 'server' do
     dir = "#{deploy['deploy_to']}/current/"
