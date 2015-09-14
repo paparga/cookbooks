@@ -7,10 +7,14 @@
 # All rights reserved - Do Not Redistribute
 #
 
-link node["nodebin"]["opsworks_location"] do
-  to node["nodebin"]["iojs_location"]
-end
+#link node["nodebin"]["opsworks_location"] do
+#  to node["nodebin"]["iojs_location"]
+#end
 
-link node["nodebin"]["location"] do
-  to node["nodebin"]["iojs_location"]
+#link node["nodebin"]["location"] do
+#  to node["nodebin"]["iojs_location"]
+#end
+
+link node["nodebin"]["opsworks_location"] do
+  to node["nodebin"]["location"]
 end
