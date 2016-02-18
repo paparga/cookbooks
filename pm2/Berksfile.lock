@@ -15,7 +15,7 @@ GRAPH
   build-essential (2.2.4)
   chef_handler (1.1.6)
   homebrew (1.12.0)
-    build-essential (>= 2.2.4)
+    build-essential (2.2.4)
   nodejs (2.4.0)
     apt (>= 0.0.0)
     ark (>= 0.0.0)
