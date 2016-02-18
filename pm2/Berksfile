@@ -2,4 +2,5 @@ source 'https://supermarket.getchef.com'
 
 metadata
 
+cookbook 'build-essential', '2.2.4'
 cookbook 'pm2_application', path: './test/cookbooks/pm2_application'
